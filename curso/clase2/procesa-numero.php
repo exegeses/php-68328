@@ -37,7 +37,7 @@ include '../layout/header.php';
             $img = 'ok';
         }
     ?>
-        <img src="imgs/<?php echo $img ?>.png">
+        <img src="imgs/<?= $img ?>.png">
 
     </main>
 <?php
