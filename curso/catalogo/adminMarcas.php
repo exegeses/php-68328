@@ -20,7 +20,7 @@
                     <th>ID</th>
                     <th>Marca</th>
                     <th colspan="2">
-                        <a href="" class="btn btn-outline-secondary">
+                        <a href="formAgregarMarca.php" class="btn btn-outline-secondary">
                             Agregar
                         </a>
                     </th>
@@ -34,12 +34,12 @@
                     <td><?= $marca['idMarca'] ?></td>
                     <td><?= $marca['mkNombre'] ?></td>
                     <td>
-                        <a href="" class="btn btn-outline-secondary">
+                        <a href="formModificarMarca.php?idMarca=<?= $marca['idMarca'] ?>" class="btn btn-outline-secondary">
                             Modificar
                         </a>
                     </td>
                     <td>
-                        <a href="" class="btn btn-outline-secondary">
+                        <a href="formEliminarMarca.php?idMarca=<?= $marca['idMarca'] ?>" class="btn btn-outline-secondary">
                             Eliminar
                         </a>
                     </td>
