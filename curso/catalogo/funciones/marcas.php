@@ -1,8 +1,5 @@
 <?php
-    /**
-     * CRUD de marcas
-     * eliminarMarca()
-     */
+    /*### CRUD de marcas ###*/
 
     function listarMarcas() : mysqli_result
     {
@@ -66,9 +63,31 @@
      * Función para verificar si existen productos
      * asociados a una marca
      * @param string $idMarca
-     * @return bool
+     * @return int $cantidad
      */
-    function verificarProductoPorMarca( string $idMarca ) : bool
+    function verificarProductoPorMarca( string $idMarca ) : int
     {
+        $link = conectar();
+        $sql = "SELECT 1 
+                  FROM productos
+                  WHERE idMarca = ".$idMarca."
+                  LIMIT 1";
+        $resultado = mysqli_query($link, $sql);
+        $cantidad = mysqli_num_rows($resultado);
+        return $cantidad;
+    }
 
+    function eliminarMarca( string $idMarca ) : bool
+    {
+        $link = conectar();
+        $sql = "DELETE FROM marcas
+                  WHERE idMarca = ".$idMarca;
+        try {
+            $resultado = mysqli_query( $link, $sql );
+            return $resultado;
+        }
+        catch ( Exception $e ){
+            echo $e->getMessage();
+            return false;
+        }
     }
