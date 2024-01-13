@@ -17,6 +17,22 @@
         return $resultado;
     }
 
+    function verProductoPorID() : array
+    {
+        $idProducto = $_GET['idProducto'];
+        $link = conectar();
+        $sql = "SELECT *, mkNombre, catNombre 
+                      FROM productos
+                      JOIN marcas
+                          ON productos.idMarca = marcas.idMarca
+                      JOIN categorias
+                          ON productos.idCategoria = categorias.idCategoria
+                      WHERE idProducto = ".$idProducto;
+        $resultado = mysqli_query( $link, $sql );
+        $producto = mysqli_fetch_assoc($resultado);
+        return $producto;
+    }
+
     function subirArchivo() : string
     {
         // si no enviaron archivo (predeterminado)
