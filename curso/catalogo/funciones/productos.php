@@ -35,8 +35,11 @@
 
     function subirArchivo() : string
     {
-        // si no enviaron archivo (predeterminado)
-        $prdImagen = 'noDisponible.png';
+        // si no enviaron archivo (predeterminado) en agregar
+        // $prdImagen = 'noDisponible.png';
+
+        // si no enviaron archivo en modificar
+        $prdImagen = $_POST['imgActual'] ?? 'noDisponible.png' ;
 
         // si enviaron archivo y no hay errores
         if( $_FILES['prdImagen']['error'] == 0 ) {
@@ -78,6 +81,46 @@
                             ".$prdActivo."
                         )
                     ";
+        try {
+            return mysqli_query( $link, $sql );
+        }catch (Exception $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    function modificarProducto() : bool
+    {
+        //capturamos datos enviados por el form
+        $prdNombre = $_POST['prdNombre'];
+        $prdPrecio = $_POST['prdPrecio'];
+        $idMarca = $_POST['idMarca'];
+        $idCategoria = $_POST['idCategoria'];
+        $prdDescripcion = $_POST['prdDescripcion'];
+        $prdImagen = subirArchivo();
+        $idProducto = $_POST['idProducto'];
+
+        $link = conectar();
+        $sql = "UPDATE productos 
+                  SET prdNombre = '".$prdNombre."',
+                      prdPrecio = ".$prdPrecio.",
+                      idMarca = ".$idMarca.",
+                      idCategoria = ".$idCategoria.",
+                      prdDescripcion = '".$prdDescripcion."$',
+                      prdImagen = '".$prdImagen."'
+                  WHERE idProducto = ".$idProducto;
+        try {
+            return mysqli_query( $link, $sql );
+        }catch (Exception $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    function eliminarProducto()
+    {
+        $idProducto = $_POST['idProducto'];
+        $link = conectar();
+        $sql = "DELETE FROM productos
+                  WHERE idProducto = ".$idProducto;
         try {
             return mysqli_query( $link, $sql );
         }catch (Exception $e){

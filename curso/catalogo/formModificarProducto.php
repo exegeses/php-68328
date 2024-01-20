@@ -60,7 +60,7 @@
 <?php
             while( $categoria = mysqli_fetch_assoc( $categorias ) ){
 ?>                        
-                        <option value="<?= $categoria['idCategoria'] ?>"><?= $categoria['catNombre'] ?></option>
+                        <option <?= ($categoria['idCategoria']==$producto['idCategoria'])?'selected':'' ?> value="<?= $categoria['idCategoria'] ?>"><?= $categoria['catNombre'] ?></option>
 <?php
             }
 ?>
@@ -84,6 +84,10 @@
                     <label class="custom-file-label" for="customFileLang" data-browse="Buscar en disco">Seleccionar Archivo: </label>
                 </div>
 
+                <input type="hidden" name="imgActual"
+                       value="<?= $producto['prdImagen'] ?>">
+                <input type="hidden" name="idProducto"
+                       value="<?= $producto['idProducto'] ?>">
                 <button class="btn btn-dark mr-3 px-4">Modificar producto</button>
                 <a href="adminProductos.php" class="btn btn-outline-secondary">
                     Volver a panel de productos
