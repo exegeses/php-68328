@@ -16,13 +16,14 @@
 
 
             <div class="text-end">
-
+<?php
+        if( !isset( $_SESSION['login'] ) ){
+?>
                 <a href="formLogin.php" class="btn btn-outline-light me-2">Login</a>
                 <a href="formAgregarUsuario.php" class="btn btn-warning">Registro</a>
-
-                <!-- si está logueado -->
-                <!-- si está logueado -->
-                <!--
+<?php
+        }else{
+?>
                 <div class="dropdown">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                         Nombre Apellido
@@ -49,8 +50,9 @@
                         </li>
                     </ul>
                 </div>
-                -->
-                <!-- si está logueado -->
+<?php
+        }
+?>
 
             </div>
         </div>
