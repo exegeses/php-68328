@@ -52,12 +52,20 @@
         header('location: admin.php');
     }
 
-    function logout()
+    function logout() : void
     {
-
+        //eliminamos variables de sesión
+        session_unset();
+        //eliminamos la sesión
+        session_destroy();
+        #### opcional
+        // redirección con demora
+        header('refresh:3;url=index.php');
     }
 
-    function autenticar()
+    function autenticar() : void
     {
-
+        if( !isset($_SESSION['login']) ){
+            header('location: formLogin.php?error=2');
+        }
     }

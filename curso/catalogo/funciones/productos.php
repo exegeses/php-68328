@@ -5,6 +5,7 @@
     */
     function listarProductos() : mysqli_result
     {
+        $search = busqueda();
         $link = conectar();
         $sql = "SELECT *, mkNombre, catNombre 
                   FROM productos
@@ -12,7 +13,17 @@
                       ON productos.idMarca = marcas.idMarca
                   JOIN categorias
                       ON productos.idCategoria = categorias.idCategoria
-                  ORDER BY idProducto";
+                  WHERE prdNombre LIKE '%".$search['search']."%'";
+
+        if ( $search['idMarca'] != '' ){
+            $sql .= ' AND productos.idMarca = '.$search['idMarca'];
+        }
+        if ( $search['idCategoria'] != '' ){
+            $sql .= ' AND productos.idCategoria = '.$search['idCategoria'];
+        }
+
+        $sql .= ' ORDER BY idProducto';
+
         $resultado = mysqli_query( $link, $sql );
         return $resultado;
     }
@@ -127,4 +138,13 @@
             echo $e->getMessage();
             return false;
         }
+    }
+
+    function busqueda() : array
+    {
+        //operador null coalesing (fusión de null)
+        $search['search'] = $_GET['search'] ?? '';
+        $search['idMarca'] = $_GET['idMarca'] ?? '';
+        $search['idCategoria'] = $_GET['idCategoria'] ?? '';
+        return $search;
     }
