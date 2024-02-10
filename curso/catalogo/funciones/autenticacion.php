@@ -69,3 +69,10 @@
             header('location: formLogin.php?error=2');
         }
     }
+
+    function noAdmin() : void
+    {
+        if( $_SESSION['idRol'] != 1 ){
+            header('location: no-admin.php');
+        }
+    }

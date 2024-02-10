@@ -1,5 +1,14 @@
 <?php
 
+    function listarUsuarios() : mysqli_result
+    {
+        $link = conectar();
+        $sql = "SELECT * FROM usuarios
+                    ORDER BY idUsuario";
+        $resultado = mysqli_query( $link, $sql );
+        return $resultado;
+    }
+
     function agregarUsuario() : bool
     {
         $usuNombre = $_POST['usuNombre'];
